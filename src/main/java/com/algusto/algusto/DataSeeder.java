@@ -5,8 +5,11 @@ import com.algusto.algusto.entity.Recipe;
 import com.algusto.algusto.repository.IngredientRepository;
 import com.algusto.algusto.repository.RecipeRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 
+@Component
 public class DataSeeder implements CommandLineRunner {
 
     private final RecipeRepository recipeRepository;
@@ -20,6 +23,8 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        System.out.println("Running data seeder..."); // Log data seeding in console
+
         if (recipeRepository.count() > 0) return; // Only seed if empty
 
         // Create Ingredients
@@ -27,57 +32,57 @@ public class DataSeeder implements CommandLineRunner {
         Ingredient eggs = new Ingredient();
         eggs.setName("eggs");
         eggs.setMeasurementUnit("unit");
-        ingredientRepository.save(eggs);
+        eggs = ingredientRepository.save(eggs);
 
         Ingredient butter = new Ingredient();
         butter.setName("butter");
         butter.setMeasurementUnit("grams");
-        ingredientRepository.save(butter);
+        butter = ingredientRepository.save(butter);
 
         Ingredient salt = new Ingredient();
         salt.setName("salt");
         salt.setMeasurementUnit("grams");
-        ingredientRepository.save(salt);
+        salt = ingredientRepository.save(salt);
 
         Ingredient flour = new Ingredient();
         flour.setName("flour");
         flour.setMeasurementUnit("grams");
-        ingredientRepository.save(flour);
+        flour = ingredientRepository.save(flour);
 
         Ingredient sugar = new Ingredient();
         sugar.setName("sugar");
         sugar.setMeasurementUnit("grams");
-        ingredientRepository.save(sugar);
+        sugar = ingredientRepository.save(sugar);
 
         Ingredient milk = new Ingredient();
         milk.setName("milk");
         milk.setMeasurementUnit("ml");
-        ingredientRepository.save(milk);
+        milk = ingredientRepository.save(milk);
 
         Ingredient cocoaPowder = new Ingredient();
         cocoaPowder.setName("cocoa powder");
         cocoaPowder.setMeasurementUnit("grams");
-        ingredientRepository.save(cocoaPowder);
+        cocoaPowder = ingredientRepository.save(cocoaPowder);
 
         Ingredient chickenBreast = new Ingredient();
         chickenBreast.setName("chicken breast");
         chickenBreast.setMeasurementUnit("grams");
-        ingredientRepository.save(chickenBreast);
+        chickenBreast = ingredientRepository.save(chickenBreast);
 
         Ingredient lettuce = new Ingredient();
         lettuce.setName("lettuce");
         lettuce.setMeasurementUnit("grams");
-        ingredientRepository.save(lettuce);
+        lettuce = ingredientRepository.save(lettuce);
 
         Ingredient tomato = new Ingredient();
         tomato.setName("tomato");
         tomato.setMeasurementUnit("unit");
-        ingredientRepository.save(tomato);
+        tomato = ingredientRepository.save(tomato);
 
         Ingredient oliveOil = new Ingredient();
         oliveOil.setName("olive oil");
         oliveOil.setMeasurementUnit("ml");
-        ingredientRepository.save(oliveOil);
+        oliveOil = ingredientRepository.save(oliveOil);
 
         // Create Recipes
 

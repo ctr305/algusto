@@ -1,5 +1,6 @@
 package com.algusto.algusto.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Ingredient {
     private String name;
     private String measurementUnit; //kgs, ml, grams, units, etc.
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "ingredients")
     private List<Recipe> recipes;
 

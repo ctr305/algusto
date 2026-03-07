@@ -25,4 +25,9 @@ public class RecipeController {
     public Recipe createRecipe(@RequestBody Recipe recipe) {
         return recipeService.saveRecipe(recipe);
     }
+
+    @PostMapping("/search")
+    public List<Recipe> searchByIngredients(@RequestBody List<String> ingredients) {
+        return recipeService.findRecipesByIngredients(ingredients);
+    }
 }
