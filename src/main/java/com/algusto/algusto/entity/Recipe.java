@@ -1,6 +1,8 @@
 package com.algusto.algusto.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,13 +17,13 @@ public class Recipe {
    private Integer prepTime;
    private String dishType;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
-    @JoinTable(
-            name = "recipe_ingredients",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
-    private List<Ingredient> ingredients;
+   @ManyToMany(cascade = {CascadeType.MERGE})
+   @JoinTable(
+           name = "recipe_ingredients",
+           joinColumns = @JoinColumn(name = "recipe_id"),
+           inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+   )
+   private List<Ingredient> ingredients = new ArrayList<>();
 
    @Column(length = 5000)
    private String instructions;
