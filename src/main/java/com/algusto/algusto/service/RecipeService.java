@@ -30,6 +30,7 @@ public class RecipeService {
         Set<String> normalizedNames = ingredientNames.stream()
                 .filter(Objects::nonNull)
                 .map(name -> name.trim().toLowerCase())
+                .filter(name -> !name.isEmpty())
                 .collect(Collectors.toSet());
 
         if (normalizedNames.isEmpty()) return List.of();
