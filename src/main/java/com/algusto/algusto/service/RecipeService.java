@@ -27,7 +27,7 @@ public class RecipeService {
 
         return recipeRepository.findAll().stream()
                 .filter(recipe -> recipe.getIngredients().stream()
-                        .anyMatch(ingredient -> ingredientNames.contains(ingredient.getName())))
+                        .allMatch(ingredient -> ingredientNames.contains(ingredient.getName())))
                 .collect(Collectors.toList());
     }
 }
