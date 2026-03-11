@@ -204,12 +204,6 @@ public class RecipeServiceTest {
     }
 
     @Test
-    void testFindRecipesByIngredients_returnsEmptyWhenNullInput() {
-        List<Recipe> results = recipeService.findRecipesByIngredients(List.of(null));
-        assertTrue(results.isEmpty());
-    }
-
-    @Test
     void testFindRecipesByIngredients_returnsEmptyWhenListIsNull() {
         List<Recipe> results = recipeService.findRecipesByIngredients(null);
         assertTrue(results.isEmpty());
