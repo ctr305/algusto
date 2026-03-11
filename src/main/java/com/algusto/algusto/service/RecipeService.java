@@ -31,8 +31,9 @@ public class RecipeService {
                 .collect(Collectors.toSet());
 
         return recipeRepository.findAll().stream()
-                .filter(recipe -> recipe.getIngredients().stream()
-                        .allMatch(ingredient -> normalizedNames.contains(ingredient.getName())))
+                .filter(recipe -> !recipe.getIngredients().isEmpty() &&
+                        recipe.getIngredients().stream()
+                                .allMatch(ingredient -> normalizedNames.contains(ingredient.getName())))
                 .collect(Collectors.toList());
     }
 }
