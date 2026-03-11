@@ -4,6 +4,7 @@ import com.algusto.algusto.entity.Recipe;
 import com.algusto.algusto.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,9 +26,13 @@ public class RecipeService {
     public List<Recipe> findRecipesByIngredients(List<String> ingredientNames) {
         if (ingredientNames == null || ingredientNames.isEmpty()) return List.of();
 
+        Set<String> normalizedNames = ingredientNames.stream()
+                .map(name -> name.trim().toLowerCase())
+                .collect(Collectors.toSet());
+
         return recipeRepository.findAll().stream()
                 .filter(recipe -> recipe.getIngredients().stream()
-                        .allMatch(ingredient -> ingredientNames.contains(ingredient.getName())))
+                        .allMatch(ingredient -> normalizedNames.contains(ingredient.getName())))
                 .collect(Collectors.toList());
     }
 }
