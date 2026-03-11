@@ -35,9 +35,12 @@ public class RecipeService {
         if (normalizedNames.isEmpty()) return List.of();
 
         return recipeRepository.findAll().stream()
-                .filter(recipe -> !recipe.getIngredients().isEmpty() &&
+                .filter(recipe -> recipe.getIngredients() != null &&
+                        !recipe.getIngredients().isEmpty() &&
                         recipe.getIngredients().stream()
-                                .allMatch(ingredient -> normalizedNames.contains(ingredient.getName())))
+                                .allMatch(ingredient -> ingredient.getName() != null &&
+                                        normalizedNames.contains(
+                                                ingredient.getName().trim().toLowerCase())))
                 .collect(Collectors.toList());
     }
 }
