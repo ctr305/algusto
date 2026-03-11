@@ -23,6 +23,8 @@ public class RecipeService {
     }
 
     public List<Recipe> findRecipesByIngredients(List<String> ingredientNames) {
+        if (ingredientNames == null || ingredientNames.isEmpty()) return List.of();
+
         return recipeRepository.findAll().stream()
                 .filter(recipe -> recipe.getIngredients().stream()
                         .anyMatch(ingredient -> ingredientNames.contains(ingredient.getName())))
