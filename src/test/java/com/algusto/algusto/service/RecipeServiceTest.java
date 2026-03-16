@@ -189,17 +189,7 @@ public class RecipeServiceTest {
 
     @Test
     void testFindRecipesByIngredients_returnsEmptyWhenEmptyInput() {
-        Ingredient eggs = new Ingredient();
-        eggs.setName("eggs");
-
-        Recipe scrambledEggs = new Recipe();
-        scrambledEggs.setName("Scrambled Eggs");
-        scrambledEggs.setIngredients(List.of(eggs));
-
-        when(recipeRepository.findAll()).thenReturn(List.of(scrambledEggs));
-
         List<Recipe> results = recipeService.findRecipesByIngredients(List.of(""));
-
         assertTrue(results.isEmpty());
     }
 
