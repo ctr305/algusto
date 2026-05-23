@@ -19,7 +19,7 @@ public class IngredientService {
         return ingredientRepository
             .findAll()
             .stream()
-            .map(ingredient -> IngredientMapper.toDTO(ingredient))
+            .map(IngredientMapper::toDTO)
             .toList();
     }
 }

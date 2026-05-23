@@ -1,12 +1,12 @@
 package com.algusto.algusto.controller;
 
-import com.algusto.algusto.entity.Recipe;
+import com.algusto.algusto.dto.RecipeDTO;
 import com.algusto.algusto.service.RecipeService;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/recipes")
+@RequestMapping("/api/recipes")
 @CrossOrigin
 public class RecipeController {
 
@@ -17,17 +17,19 @@ public class RecipeController {
     }
 
     @GetMapping
-    public List<Recipe> getAllRecipes() {
+    public List<RecipeDTO> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
 
     @PostMapping
-    public Recipe createRecipe(@RequestBody Recipe recipe) {
+    public RecipeDTO createRecipe(@RequestBody RecipeDTO recipe) {
         return recipeService.saveRecipe(recipe);
     }
 
     @PostMapping("/search")
-    public List<Recipe> searchByIngredients(@RequestBody List<String> ingredients) {
+    public List<RecipeDTO> searchByIngredients(
+        @RequestBody List<String> ingredients
+    ) {
         return recipeService.findRecipesByIngredients(ingredients);
     }
 }
