@@ -1,6 +1,6 @@
 # Algusto
 
-A recipe finder built around what's actually in your kitchen. Give it a list of ingredients and it returns recipes you can make with exactly what you have — no substitutions, no missing items.
+A recipe finder built around what's actually in your kitchen. Give it a list of ingredients and it returns recipes you can make with exactly what you have. no substitutions, no missing items.
 
 Work in progress.
 
@@ -12,15 +12,14 @@ Work in progress.
 - Java 25 + Spring Boot 4
 - Spring Data JPA
 - H2 (in-memory, auto-seeded on startup)
+- PostgreSQL (for production deployment)
 - Maven
 
 ---
 
 ## Running locally
 
-### Backend
-
-Requires Java 25+. No database setup needed — H2 runs in-memory and seeds itself.
+Requires Java 25+. No database setup needed. H2 runs in-memory and seeds itself.
 
 ```bash
 git clone https://github.com/ctr305/algusto.git
@@ -31,6 +30,20 @@ cd algusto
 API runs at `http://localhost:8080`. An H2 console for poking around the database is available at `http://localhost:8080/h2-console`.
 
 ---
+
+## Deployment
+
+Run the PostgreSQL database locally or use a cloud provider. Use `docker-compose` to run the database in a container. Set environment variables (DB url and credentials) in `.env`.
+
+```bash
+docker-compose up -d
+```
+
+Then run the application with the 'prod' profile to use PostgreSQL instead of H2.
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+```
 
 ## API
 
@@ -52,7 +65,7 @@ API runs at `http://localhost:8080`. An H2 console for poking around the databas
 
 ### Searching by ingredients
 
-POST a JSON array of ingredient names. Only returns recipes where every required ingredient is covered by your list — so if a recipe needs eggs and butter, you need both in your list for it to show up.
+POST a JSON array of ingredient names. Only returns recipes where every required ingredient is covered by your list, so if a recipe needs eggs and butter, you need both in your list for it to show up.
 
 ```http
 POST /api/recipes/search
@@ -110,9 +123,10 @@ The test suite is split into two layers. Service tests use Mockito to test the b
 
 ## What's next
 
-- DTO layer (currently the API accepts and returns JPA entities directly)
 - Input validation and proper error responses
-- Spring profiles to support swapping H2 out for PostgreSQL for a live deployment
+- Spring security for authentication and authorization
+- OpenAPI documentation
+- Actuator for monitoring and health checks
 - Ingredient quantity tracking per recipe
 
 ---
