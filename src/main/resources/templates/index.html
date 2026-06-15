@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Algusto</title>
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <style>
+            body {
+                padding: 20px;
+            }
+            .recipe-card {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            input {
+                width: 300px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Algusto - Recipe Finder</h1>
+
+        <input
+            type="text"
+            name="ingredients"
+            placeholder="Enter ingredients (comma separated)"
+            hx-post="/search"
+            hx-trigger="keyup changed delay:400ms"
+            hx-target="#results"
+            hx-include="this"
+        />
+
+        <div id="results"></div>
+    </body>
+</html>

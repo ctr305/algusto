@@ -1,0 +1,17 @@
+<div th:fragment="results">
+    <div th:each="recipe : ${recipes}" class="recipe-card">
+        <h3 th:text="${recipe.name}"></h3>
+        <p>
+            Difficulty: <span th:text="${recipe.difficulty}"></span> | Time:
+            <span th:text="${recipe.prepTime}"></span> min | Type:
+            <span th:text="${recipe.dishType}"></span>
+        </p>
+        <p>
+            <strong>Ingredients:</strong>
+            <span
+                th:text="${#strings.listJoin(recipe.ingredientNames, ', ')}"
+            ></span>
+        </p>
+        <p th:text="${recipe.instructions}"></p>
+    </div>
+</div>
