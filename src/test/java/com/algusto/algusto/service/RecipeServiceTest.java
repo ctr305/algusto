@@ -1,18 +1,18 @@
 package com.algusto.algusto.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import com.algusto.algusto.dto.RecipeDTO;
 import com.algusto.algusto.entity.Ingredient;
 import com.algusto.algusto.entity.Recipe;
 import com.algusto.algusto.repository.RecipeRepository;
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RecipeServiceTest {
@@ -32,12 +32,16 @@ public class RecipeServiceTest {
         scrambledEggs.setName("Scrambled Eggs");
         scrambledEggs.setIngredients(List.of(eggs));
 
-        when(recipeRepository.findByIngredientNames(any())).thenReturn(List.of(scrambledEggs));
+        when(recipeRepository.findByIngredientNames(any())).thenReturn(
+            List.of(scrambledEggs)
+        );
 
-        List<Recipe> results = recipeService.findRecipesByIngredients(List.of("Eggs"));
+        List<RecipeDTO> results = recipeService.findRecipesByIngredients(
+            List.of("Eggs")
+        );
 
         assertEquals(1, results.size());
-        assertEquals(scrambledEggs.getName(), results.getFirst().getName());
+        assertEquals(scrambledEggs.getName(), results.getFirst().name());
     }
 
     @Test
@@ -49,23 +53,37 @@ public class RecipeServiceTest {
         scrambledEggs.setName("Scrambled Eggs");
         scrambledEggs.setIngredients(List.of(eggs));
 
-        when(recipeRepository.findByIngredientNames(any())).thenReturn(List.of(scrambledEggs));
+        when(recipeRepository.findByIngredientNames(any())).thenReturn(
+            List.of(scrambledEggs)
+        );
 
-        List<Recipe> results = recipeService.findRecipesByIngredients(List.of("   eggs   "));
+        List<RecipeDTO> results = recipeService.findRecipesByIngredients(
+            List.of("   eggs   ")
+        );
 
         assertEquals(1, results.size());
-        assertEquals(scrambledEggs.getName(), results.getFirst().getName());
+        assertEquals(scrambledEggs.getName(), results.getFirst().name());
     }
 
     @Test
-    void testFindRecipesByIngredients_returnsEmptyWhenEmptyInput() {
-        List<Recipe> results = recipeService.findRecipesByIngredients(List.of(""));
-        assertTrue(results.isEmpty());
+    void testFindRecipesByIngredients_normalizesWhitespaceBeforeQuerying() {
+        when(recipeRepository.findByIngredientNames(any())).thenReturn(
+            List.of()
+        );
+
+        recipeService.findRecipesByIngredients(List.of("   eggs   "));
+
+        verify(recipeRepository).findByIngredientNames(List.of("eggs"));
     }
 
     @Test
-    void testFindRecipesByIngredients_returnsEmptyWhenListIsNull() {
-        List<Recipe> results = recipeService.findRecipesByIngredients(null);
-        assertTrue(results.isEmpty());
+    void testFindRecipesByIngredients_lowercasesInputBeforeQuerying() {
+        when(recipeRepository.findByIngredientNames(any())).thenReturn(
+            List.of()
+        );
+
+        recipeService.findRecipesByIngredients(List.of("Eggs"));
+
+        verify(recipeRepository).findByIngredientNames(List.of("eggs"));
     }
 }

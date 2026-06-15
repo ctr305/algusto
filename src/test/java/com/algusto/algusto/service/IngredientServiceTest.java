@@ -1,17 +1,17 @@
 package com.algusto.algusto.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import com.algusto.algusto.dto.IngredientDTO;
 import com.algusto.algusto.entity.Ingredient;
 import com.algusto.algusto.repository.IngredientRepository;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class IngredientServiceTest {
@@ -32,18 +32,18 @@ public class IngredientServiceTest {
 
         when(ingredientRepository.findAll()).thenReturn(List.of(eggs, milk));
 
-        List<Ingredient> results = ingredientService.getAllIngredients();
+        List<IngredientDTO> results = ingredientService.getAllIngredients();
 
         assertEquals(2, results.size());
-        assertEquals(eggs.getName(), results.get(0).getName());
-        assertEquals(milk.getName(), results.get(1).getName());
+        assertEquals(eggs.getName(), results.get(0).name());
+        assertEquals(milk.getName(), results.get(1).name());
     }
 
     @Test
     void testGetAllIngredients_returnsEmptyWhenNoIngredients() {
         when(ingredientRepository.findAll()).thenReturn(List.of());
 
-        List<Ingredient> results = ingredientService.getAllIngredients();
+        List<IngredientDTO> results = ingredientService.getAllIngredients();
 
         assertTrue(results.isEmpty());
     }

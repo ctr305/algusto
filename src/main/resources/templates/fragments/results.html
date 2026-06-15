@@ -1,0 +1,46 @@
+<th:block th:fragment="results">
+    <th:block th:if="${not #lists.isEmpty(recipes)}">
+        <div th:each="recipe : ${recipes}" class="recipe-card">
+            <div class="recipe-card-header">
+                <h3 th:text="${recipe.name}"></h3>
+                <span
+                    class="difficulty-badge"
+                    th:classappend="${'difficulty-' + #strings.toLowerCase(recipe.difficulty)}"
+                    th:text="${#strings.capitalize(recipe.difficulty)}"
+                ></span>
+            </div>
+
+            <div class="recipe-meta">
+                <span class="meta-item meta-time">
+                    <span th:text="${recipe.prepTime} + ' min'"></span>
+                </span>
+                <span
+                    class="meta-item meta-type"
+                    th:text="${recipe.dishType}"
+                ></span>
+            </div>
+
+            <div class="ingredients">
+                <span class="ingredients-label">Ingredients</span>
+                <div class="ingredients-list">
+                    <span
+                        th:each="ingredient : ${recipe.ingredientNames}"
+                        class="ingredient-tag"
+                        th:text="${ingredient}"
+                    ></span>
+                </div>
+            </div>
+
+            <p class="instructions" th:text="${recipe.instructions}"></p>
+        </div>
+    </th:block>
+
+    <div th:if="${#lists.isEmpty(recipes)}" class="empty-state">
+        <div class="empty-state-icon">🍳</div>
+        <h2 class="empty-state-title">No recipes found yet</h2>
+        <p class="empty-state-message">
+            Try different ingredients to discover recipes you can make with what
+            you have.
+        </p>
+    </div>
+</th:block>
