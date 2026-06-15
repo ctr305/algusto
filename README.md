@@ -1,6 +1,6 @@
 # Algusto
 
-A recipe finder built around what's actually in your kitchen. Give it a list of ingredients and it returns recipes you can make with exactly what you have. no substitutions, no missing items.
+A recipe finder built around what's actually in your kitchen. Give it a list of ingredients and it returns recipes you can make with exactly what you have. No substitutions, no missing items.
 
 Work in progress.
 
@@ -14,6 +14,7 @@ Work in progress.
 - H2 (in-memory, auto-seeded on startup)
 - PostgreSQL (for production deployment)
 - Maven
+- HTMX frontend
 
 ---
 
@@ -44,6 +45,12 @@ Then run the application with the 'prod' profile to use PostgreSQL instead of H2
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
 ```
+
+## Frontend
+
+The project exposes an HTMX frontend at the root URL (`http://localhost:8080`). Here, you can perform searches through a graphical UI.
+
+---
 
 ## API
 
@@ -133,4 +140,4 @@ The test suite is split into two layers. Service tests use Mockito to test the b
 
 ## License
 
-[LGPL-3.0](LICENSE)
+[AGPL-3.0](LICENSE)
