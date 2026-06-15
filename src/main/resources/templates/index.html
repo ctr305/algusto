@@ -1,36 +1,39 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Algusto</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Algusto – Find recipes with what you already have</title>
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-        <style>
-            body {
-                padding: 20px;
-            }
-            .recipe-card {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin-bottom: 10px;
-            }
-            input {
-                width: 300px;
-                padding: 10px;
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
     </head>
     <body>
-        <h1>Algusto - Recipe Finder</h1>
+        <header class="header">
+            <h1>Algusto</h1>
+            <p class="subtitle">Find recipes by what's in your kitchen</p>
+        </header>
 
-        <input
-            type="text"
-            name="ingredients"
-            placeholder="Enter ingredients (comma separated)"
-            hx-post="/search"
-            hx-trigger="keyup changed delay:400ms"
-            hx-target="#results"
-            hx-include="this"
-        />
+        <section class="search-section">
+            <div class="search-wrapper">
+                <input
+                    type="text"
+                    name="ingredients"
+                    placeholder="Enter ingredients (comma separated)"
+                    hx-post="/search"
+                    hx-trigger="keyup changed delay:400ms"
+                    hx-target="#results"
+                    hx-include="this"
+                    autocomplete="off"
+                />
+            </div>
+        </section>
 
         <div id="results"></div>
+
+        <footer>
+            <a href="https://git.jehutyy.dev/jehuty/algusto"
+                >View source code</a
+            >
+        </footer>
     </body>
 </html>
