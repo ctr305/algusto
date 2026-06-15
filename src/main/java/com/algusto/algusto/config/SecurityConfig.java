@@ -37,6 +37,13 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/search")
                     .permitAll()
+                    .requestMatchers(
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/favicon.ico"
+                    )
+                    .permitAll()
                     .anyRequest()
                     .authenticated()
             )
